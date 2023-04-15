@@ -1,7 +1,7 @@
 // import 'package:extensions_demonstration/main.dart' hide BetterStrings;
 //! Hides BetterStrings extension
 import 'package:extensions_demonstration/main.dart'
-    show BetterList, BetterStrings, BetterIntegers;
+    show BetterStrings, BetterIntegers;
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
