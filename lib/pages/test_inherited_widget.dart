@@ -1,4 +1,5 @@
 import 'package:extensions_demonstration/inherited_widgets/my_inherited_widget.dart';
+import 'package:extensions_demonstration/pages/api_call.dart';
 import 'package:flutter/material.dart';
 
 //! Define the root widget that creates the InheritedWidget
@@ -7,10 +8,17 @@ class MyApp1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyInheritedWidget(
-      info: 'Hello, world!',
-      counter: 599,
-      child: Level1(),
+    return Scaffold(
+      body: Center(
+        child: MyInheritedWidget(
+          info: 'Hello, world!',
+          counter: 599,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Level2()],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -66,7 +74,10 @@ class MyWidget extends StatelessWidget {
     // Get the info from the inherited widget
     final info = MyInheritedWidget.of(context).info;
 
-    return Text(
-        "$info My Age is ${MyInheritedWidget.of(context).counter} years");
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Text(
+          "This is a widget thats 5 widgets down the tree that fetches data from inherited widget named  `MyInheritedWidget` \nINFO -> $info COUNTER -> ${MyInheritedWidget.of(context).counter}"),
+    );
   }
 }
