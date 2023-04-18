@@ -1,27 +1,5 @@
+import 'package:extensions_demonstration/inherited_widgets/my_inherited_widget.dart';
 import 'package:flutter/material.dart';
-
-//! Define the InheritedWidget
-class MyInheritedWidget extends InheritedWidget {
-  final String info;
-  final int counter;
-  MyInheritedWidget(
-      {Key? key,
-      required Widget child,
-      required this.info,
-      required this.counter})
-      : super(key: key, child: child);
-
-  @override
-  bool updateShouldNotify(MyInheritedWidget oldWidget) {
-    // Always notify the descendants when the info changes
-    return info != oldWidget.info;
-  }
-
-  // Define a static method for easy access to the inherited widget
-  static MyInheritedWidget of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<MyInheritedWidget>()!;
-  }
-}
 
 //! Define the root widget that creates the InheritedWidget
 class MyApp1 extends StatelessWidget {
