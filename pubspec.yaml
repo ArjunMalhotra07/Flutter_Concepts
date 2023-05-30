@@ -32,6 +32,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  get_it: ^7.6.0
+  http: ^0.13.6
   nasa: ^0.0.2
 
 dev_dependencies:
