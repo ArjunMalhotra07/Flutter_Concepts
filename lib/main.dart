@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -35,6 +36,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  User sarah1 = User(21, 'Sarah');
+  User sarah2 = User(21, 'Sarah');
+  User james = User(21, 'James');
+  @override
+  void initState() {
+    // TODO: implement initState
+    print(sarah1 == sarah2);
+    print(sarah1 == james);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,4 +74,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+class User extends Equatable {
+  String name;
+  int age;
+  User(this.age, this.name);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [name, age];
 }
