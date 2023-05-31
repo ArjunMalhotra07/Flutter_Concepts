@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  just_audio: ^0.9.34
   nasa: ^0.0.2
 
 dev_dependencies:
