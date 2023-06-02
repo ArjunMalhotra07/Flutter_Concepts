@@ -29,10 +29,15 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  analyzer: ^5.13.0
   audioplayers: ^4.1.0
+  build_runner: ^2.4.4
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.0
   just_audio: ^0.9.34
   nasa: ^0.0.2
 
