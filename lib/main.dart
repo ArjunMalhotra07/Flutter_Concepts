@@ -57,13 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future loadMusic() async {
-    // String url =
-    //     'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
-    // audioPlayer.setSourceUrl(url);
+    String url =
+        'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
+    audioPlayer.setSourceUrl(url);
 
-    final playerCache = AudioCache(prefix: 'assets/');
-    final url = await playerCache.load('song.mp3');
-    audioPlayer.setSourceUrl(url.path);
+    // final playerCache = AudioCache(prefix: 'assets/');
+    // final url = await playerCache.load('song.mp3');
+    // audioPlayer.setSourceUrl(url.path);
   }
 
   @override
