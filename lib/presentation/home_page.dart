@@ -25,13 +25,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home'), centerTitle: true),
-      body: ValueListenableBuilder(
-          valueListenable: Boxes.getTransactions().listenable(),
-          builder: ((content, box, child) {
-            final transactions = box.values.toList().cast<Transaction>();
-            print(transactions);
-            return contentGen(transactions);
-          })),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 35.0),
+        child: ValueListenableBuilder(
+            valueListenable: Boxes.getTransactions().listenable(),
+            builder: ((content, box, child) {
+              final transactions = box.values.toList().cast<Transaction>();
+              print(transactions);
+              return contentGen(transactions);
+            })),
+      ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(
@@ -51,11 +54,19 @@ Widget contentGen(List<Transaction> transactions) {
   return ListView.builder(
     itemCount: transactions.length,
     itemBuilder: (context, index) {
-      return ListTile(
-        title: Text(transactions[index].name),
-        subtitle: Text(
-            "${transactions[index].createdDate.day}-${transactions[index].createdDate.month}-${transactions[index].createdDate.year}"),
-        trailing: Text(transactions[index].amount.toString()),
+      return GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => AddTransaction(
+                    transaction: transactions[index],
+                  )));
+        },
+        child: ListTile(
+          title: Text(transactions[index].name),
+          subtitle: Text(
+              "${transactions[index].createdDate.day}-${transactions[index].createdDate.month}-${transactions[index].createdDate.year}"),
+          trailing: Text(transactions[index].amount.toString()),
+        ),
       );
     },
   );

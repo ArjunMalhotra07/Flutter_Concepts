@@ -4,7 +4,12 @@ import '../domain/models/transaction.dart';
 import 'home_page.dart';
 
 class AddTransaction extends StatelessWidget {
-  AddTransaction({super.key});
+  final String? nameField;
+  final double? amountField;
+  final Transaction? transaction;
+
+  AddTransaction(
+      {this.amountField, this.transaction, this.nameField, super.key});
   var name = TextEditingController();
   var amount = TextEditingController();
   bool isExpenseVar = true;
@@ -20,19 +25,30 @@ class AddTransaction extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              decoration: const InputDecoration(hintText: 'Name'),
+              decoration: InputDecoration(
+                hintText: transaction?.name ?? 'Name',
+              ),
               controller: name,
             ),
             TextFormField(
-              decoration: const InputDecoration(hintText: 'Amount'),
+              decoration: InputDecoration(
+                  hintText: transaction?.amount == null
+                      ? 'Amount'
+                      : transaction?.amount.toString()),
               controller: amount,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: () {
-                  addTransaction(name.text, double.parse(amount.text), true);
+                  transaction == null
+                      ? addTransaction(
+                          name.text, double.parse(amount.text), true)
+                      : editTransaction(
+                          transaction!, name.text, double.parse(amount.text));
                 },
-                child: const Text('Add'))
+                child: transaction == null
+                    ? const Text('Add')
+                    : const Text('Edit'))
           ],
         ),
       ),
@@ -49,5 +65,17 @@ class AddTransaction extends StatelessWidget {
     box.add(transaction);
     //! or Aternatively
     //! box.put('myKey', transaction);
+    /* 
+      final myBox = Boxes.getTransaction();
+      final myTransaction = myBox.get('key');
+    */
+  }
+
+  editTransaction(Transaction transaction, String name, double amount) {
+    transaction.name = name;
+    transaction.amount = amount;
+    transaction.isExpense = true;
+    transaction.createdDate = DateTime.now();
+    transaction.save();
   }
 }
