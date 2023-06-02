@@ -44,7 +44,9 @@ class AddTransaction extends StatelessWidget {
                       ? addTransaction(
                           name.text, double.parse(amount.text), true)
                       : editTransaction(
-                          transaction!, name.text, double.parse(amount.text));
+                          transaction!,
+                          name.text != '' ? name.text : transaction!.name,
+                          double.parse(amount.text));
                 },
                 child: transaction == null
                     ? const Text('Add')

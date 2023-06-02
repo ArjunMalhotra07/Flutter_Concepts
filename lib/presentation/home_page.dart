@@ -62,6 +62,12 @@ Widget contentGen(List<Transaction> transactions) {
                   )));
         },
         child: ListTile(
+          leading: IconButton(
+            onPressed: () {
+              transactions[index].delete();
+            },
+            icon: const Icon(Icons.delete, color: Colors.red),
+          ),
           title: Text(transactions[index].name),
           subtitle: Text(
               "${transactions[index].createdDate.day}-${transactions[index].createdDate.month}-${transactions[index].createdDate.year}"),
