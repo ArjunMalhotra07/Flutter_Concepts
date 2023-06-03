@@ -1,6 +1,11 @@
+import 'package:extensions_demonstration/screens/home.dart';
+import 'package:extensions_demonstration/screens/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() {
+  GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -8,57 +13,48 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const LandingPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class LandingPage extends StatefulWidget {
+  const LandingPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LandingPage> createState() => _LandingPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+class _LandingPageState extends State<LandingPage> {
+  var getInstance = GetStorage();
+  @override
+  void initState() {
+    super.initState();
+    getInstance.writeIfNull('isLoggedIn', false);
+    Future.delayed(Duration.zero, () async {
+      checkIfLoggedIn();
     });
+  }
+
+  checkIfLoggedIn() {
+    bool isLoggedIn = getInstance.read('isLoggedIn');
+    if (isLoggedIn == true) {
+      Get.to(HomePage());
+    } else {
+      Get.to(LoginInPage());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: Container(
+        child: const Center(child: CircularProgressIndicator()),
       ),
     );
   }
